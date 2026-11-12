@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patitas - Todo para el bienestar de tu mascota</title>
+    <!-- Importar fuente amigable similar a la del diseño -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Iconos gratuitos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-orange: #FF7300;
+            --light-orange: #FFF0E3;
+            --bg-app: #FFF9F3;
+            --text-dark: #333333;
+            --text-gray: #777777;
+            --white: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        body {
+            background-color: #e0e0e0; /* Fondo gris para desktop */
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Contenedor principal simulando la pantalla del celular */
+        .app-container {
+            width: 100%;
+            max-width: 414px;
+            background-color: var(--bg-app);
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 80px; /* Espacio para el menú inferior */
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: var(--white);
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+
+        .header-logo h1 {
+            color: var(--text-dark);
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .header-logo h1 i {
+            color: var(--primary-orange);
+            margin-right: 5px;
+        }
+
+        .header-logo p {
+            font-size: 12px;
+            color: var(--text-gray);
+        }
+
+        .header-icons i {
+            font-size: 22px;
+            color: var(--primary-orange);
+            margin-left: 15px;
+        }
+
+        /* Banner naranja */
+        .banner {
+            background: linear-gradient(135deg, #FF8C00, #FF6200);
+            margin: 20px;
+            padding: 20px;
+            border-radius: 20px;
+            color: var(--white);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .banner h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .banner p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* Filtros */
+        .filters {
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .filter-btn {
+            background: var(--white);
+            border: 1px solid #eee;
+            padding: 10px;
+            border-radius: 12px;
+            font-size: 14px;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .filter-btn i {
+            color: var(--primary-orange);
+            margin-right: 8px;
+        }
+
+        /* Tarjeta de Mascota */
+        .pet-card {
+            background: var(--white);
+            margin: 0 20px 20px 20px;
+            border-radius: 20px;
+            padding: 15px;
+            display: flex;
+            gap: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            position: relative;
+        }
+
+        .pet-img {
+            width: 100px;
+            height: 120px;
+            border-radius: 15px;
+            object-fit: cover;
+        }
+
+        .pet-info {
+            flex: 1;
+        }
+
+        .pet-info h3 {
+            font-size: 20px;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .pet-tags {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: var(--light-orange);
+            color: var(--primary-orange);
+            font-size: 11px;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .pet-location {
+            font-size: 12px;
+            color: var(--text-gray);
+            margin-bottom: 10px;
+        }
+
+        .pet-location i {
+            color: var(--primary-orange);
+        }
+
+        .btn-ver {
+            background: var(--primary-orange);
+            color: var(--white);
+            border: none;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            float: right;
+        }
+
+        .heart-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: #FFB300;
+            font-size: 20px;
+        }
+
+        /* Menú Inferior (Bottom Nav) */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            max-width: 414px;
+            background: var(--white);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            box-shadow: 0 -2px 15px rgba(0,0,0,0.05);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 600;
+            gap: 4px;
+        }
+
+        .nav-item i {
+            font-size: 20px;
+        }
+
+        .nav-item.active {
+            color: var(--primary-orange);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- Header -->
+        <header class="header">
+            <div class="header-logo">
+                <h1><i class="fa-solid fa-paw"></i> Patitas</h1>
+                <p>Todo para el bienestar de tu mascota</p>
+            </div>
+            <div class="header-icons">
+                <i class="fa-regular fa-bell"></i>
+                <i class="fa-regular fa-envelope"></i>
+            </div>
+        </header>
+
+        <!-- Banner Buscar Mascotas -->
+        <div class="banner">
+            <div>
+                <h2>Buscar mascotas</h2>
+                <p>Encuentra a tu nuevo mejor amigo</p>
+            </div>
+            <i class="fa-solid fa-heart" style="font-size: 40px; opacity: 0.8;"></i>
+        </div>
+
+        <!-- Filtros Rapidos -->
+        <div class="filters">
+            <div class="filter-btn">
+                <i class="fa-solid fa-cat"></i> Tipo: Gato/Perro
+            </div>
+            <div class="filter-btn">
+                <i class="fa-solid fa-ruler"></i> Tamaño: Todos
+            </div>
+            <div class="filter-btn">
+                <i class="fa-solid fa-location-dot"></i> Distrito
+            </div>
+            <div class="filter-btn" style="background: var(--primary-orange); color: white; justify-content: center;">
+                <i class="fa-solid fa-magnifying-glass" style="color: white;"></i> Buscar
+            </div>
+        </div>
+
+        <!-- Tarjeta de Mascota 1 -->
+        <div class="pet-card">
+            <i class="fa-regular fa-heart heart-icon"></i>
+            <!-- Imagen de prueba desde Unsplash (Reemplazar luego) -->
+            <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Max" class="pet-img">
+            <div class="pet-info">
+                <h3>Max</h3>
+                <div class="pet-tags">
+                    <span class="tag"><i class="fa-solid fa-paw"></i> Perro</span>
+                    <span class="tag">Mestizo</span>
+                    <span class="tag">Mediano</span>
+                </div>
+                <div class="pet-location">
+                    <i class="fa-solid fa-location-dot"></i> Albergue Patitas Felices<br>Ate, Lima
+                </div>
+                <button class="btn-ver">Ver más <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </div>
+
+        <!-- Tarjeta de Mascota 2 -->
+        <div class="pet-card">
+            <i class="fa-regular fa-heart heart-icon"></i>
+            <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Luna" class="pet-img">
+            <div class="pet-info">
+                <h3>Luna</h3>
+                <div class="pet-tags">
+                    <span class="tag"><i class="fa-solid fa-cat"></i> Gato</span>
+                    <span class="tag">Atigrado gris</span>
+                    <span class="tag">Pequeño</span>
+                </div>
+                <div class="pet-location">
+                    <i class="fa-solid fa-location-dot"></i> Rescatistas Independientes<br>SMP, Lima
+                </div>
+                <button class="btn-ver">Ver más <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </div>
+
+        <!-- Menú de Navegación Inferior -->
+        <nav class="bottom-nav">
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-house"></i>
+                <span>Inicio</span>
+            </a>
+            <a href="#" class="nav-item active">
+                <i class="fa-solid fa-paw"></i>
+                <span>Adoptar</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span>Productos</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-dog"></i>
+                <span>Mis mascotas</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-regular fa-user"></i>
+                <span>Perfil</span>
+            </a>
+        </nav>
+
+    </div>
+
+</body>
+</html>
