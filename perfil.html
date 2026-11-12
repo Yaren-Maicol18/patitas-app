@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil - Patitas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-orange: #FF7300;
+            --light-orange: #FFF0E3;
+            --bg-app: #FFF9F3;
+            --text-dark: #333333;
+            --text-gray: #777777;
+            --white: #FFFFFF;
+            --success-green: #28a745;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        body {
+            background-color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 414px;
+            background-color: var(--bg-app);
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 80px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        /* Top Bar */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            gap: 15px;
+        }
+
+        .btn-back {
+            background: var(--primary-orange);
+            color: var(--white);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .top-title h1 {
+            font-size: 22px;
+            color: var(--text-dark);
+            font-weight: 800;
+        }
+
+        .top-title p {
+            font-size: 12px;
+            color: var(--text-gray);
+        }
+
+        /* Banner de Perfil */
+        .profile-banner {
+            background: linear-gradient(135deg, #FF8C00, #FF6200);
+            margin: 0 20px 20px 20px;
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-pic-container {
+            position: relative;
+        }
+
+        .profile-pic {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--white);
+        }
+
+        .edit-pic-btn {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: var(--white);
+            color: var(--primary-orange);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .profile-info h2 {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 2px;
+        }
+
+        .profile-info p.username {
+            font-size: 13px;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+
+        .badge-lover {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .quote {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            font-style: italic;
+            text-align: right;
+            width: 90px;
+            line-height: 1.2;
+            opacity: 0.9;
+        }
+
+        /* Tarjetas de Información */
+        .card {
+            background: var(--white);
+            margin: 0 20px 20px 20px;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+
+        .card-title i {
+            color: var(--primary-orange);
+            font-size: 20px;
+        }
+
+        .btn-edit {
+            background: var(--light-orange);
+            color: var(--primary-orange);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .info-item i {
+            color: var(--primary-orange);
+            margin-top: 3px;
+        }
+
+        .info-text h4 {
+            font-size: 12px;
+            color: var(--text-gray);
+            font-weight: 600;
+        }
+
+        .info-text p {
+            font-size: 13px;
+            color: var(--text-dark);
+            font-weight: 700;
+        }
+
+        .status-verified {
+            color: var(--success-green) !important;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Sección Favoritos */
+        .card-subtitle {
+            font-size: 12px;
+            color: var(--text-gray);
+            margin-left: 30px;
+            margin-top: -10px;
+            margin-bottom: 15px;
+        }
+
+        .favorites-grid {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .favorite-box {
+            flex: 1;
+            background: var(--light-orange);
+            padding: 15px 10px;
+            border-radius: 15px;
+            text-align: center;
+            color: var(--primary-orange);
+            text-decoration: none;
+        }
+
+        .favorite-box i {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .favorite-box p {
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+
+        .favorite-box span {
+            font-size: 11px;
+            color: var(--text-gray);
+            font-weight: 600;
+        }
+
+        /* Menú Inferior */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            max-width: 414px;
+            background: var(--white);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            box-shadow: 0 -2px 15px rgba(0,0,0,0.05);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 600;
+            gap: 4px;
+        }
+
+        .nav-item i {
+            font-size: 20px;
+        }
+
+        .nav-item.active {
+            color: var(--primary-orange);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- Header -->
+        <div class="top-bar">
+            <!-- Este botón regresa a la pantalla principal -->
+            <a href="index.html" class="btn-back">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+            <div class="top-title">
+                <h1>Perfil</h1>
+                <p>Tu información y actividad en Patitas</p>
+            </div>
+        </div>
+
+        <!-- Banner de Perfil -->
+        <div class="profile-banner">
+            <div class="profile-pic-container">
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Ana Torres" class="profile-pic">
+                <div class="edit-pic-btn"><i class="fa-solid fa-pencil"></i></div>
+            </div>
+            <div class="profile-info">
+                <h2>Ana Torres</h2>
+                <p class="username">@anatorres</p>
+                <div class="badge-lover">
+                    <i class="fa-solid fa-paw"></i> Amante de los animales
+                </div>
+            </div>
+            <div class="quote">
+                "Más amor<br>para ellos"<br>
+                <i class="fa-regular fa-heart" style="margin-top: 5px;"></i>
+            </div>
+        </div>
+
+        <!-- Tarjeta Datos Personales -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <i class="fa-solid fa-user"></i> Datos personales
+                </div>
+                <button class="btn-edit"><i class="fa-solid fa-pencil"></i> Editar</button>
+            </div>
+            
+            <div class="info-grid">
+                <div class="info-item">
+                    <i class="fa-solid fa-user-circle"></i>
+                    <div class="info-text">
+                        <h4>Nombre de usuario</h4>
+                        <p>@anatorres</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div class="info-text">
+                        <h4>Distrito</h4>
+                        <p>Miraflores</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <div class="info-text">
+                        <h4>Número de celular</h4>
+                        <p>+51 987 654 321</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fa-regular fa-calendar"></i>
+                    <div class="info-text">
+                        <h4>Fecha de registro</h4>
+                        <p>15 de enero de 2025</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <div class="info-text">
+                        <h4>Correo electrónico</h4>
+                        <p>ana.torres@gmail.com</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <div class="info-text">
+                        <h4>Estado de cuenta</h4>
+                        <p class="status-verified">Verificado <i class="fa-solid fa-circle-check"></i></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta Ver Favoritos -->
+        <div class="card">
+            <div class="card-header" style="margin-bottom: 5px;">
+                <div class="card-title">
+                    <i class="fa-solid fa-heart"></i> Ver favoritos
+                </div>
+                <i class="fa-solid fa-chevron-right" style="color: var(--text-gray); font-size: 14px;"></i>
+            </div>
+            <p class="card-subtitle">Productos, servicios y adopciones que guardaste</p>
+            
+            <div class="favorites-grid">
+                <a href="#" class="favorite-box">
+                    <i class="fa-solid fa-paw"></i>
+                    <p>Productos</p>
+                    <span>(12)</span>
+                </a>
+                <a href="#" class="favorite-box">
+                    <i class="fa-solid fa-wrench"></i>
+                    <p>Servicios</p>
+                    <span>(8)</span>
+                </a>
+                <a href="#" class="favorite-box">
+                    <i class="fa-solid fa-house"></i>
+                    <p>Adopciones</p>
+                    <span>(5)</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Menú de Navegación Inferior -->
+        <nav class="bottom-nav">
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-house"></i>
+                <span>Inicio</span>
+            </a>
+            <!-- Enlace que conecta de regreso al archivo index.html -->
+            <a href="index.html" class="nav-item">
+                <i class="fa-solid fa-paw"></i>
+                <span>Adoptar</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span>Productos</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-dog"></i>
+                <span>Mis mascotas</span>
+            </a>
+            <a href="#" class="nav-item active">
+                <i class="fa-regular fa-user"></i>
+                <span>Perfil</span>
+            </a>
+        </nav>
+
+    </div>
+
+</body>
+</html>
